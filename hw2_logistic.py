@@ -128,11 +128,11 @@ def _normalize(X, train = True, specified_column = None, X_mean = None, X_std = 
     X[:,specified_column] = (X[:, specified_column] - X_mean) / (X_std + 1e-8)
      
     return X, X_mean, X_std
-X_mean = np.load('X_mean.npy')
-X_std = np.load('X_std.npy')
+X_mean = np.load('mean_logistic.npy')
+X_std = np.load('std_logistic.npy')
 X_test, _, _= _normalize(X_test, train = False, specified_column = None, X_mean = X_mean, X_std = X_std)
-w = np.load('weight_best.npy')
-b = np.load('b_best.npy')
+w = np.load('weight_logistic.npy')
+b = np.load('b_logistic.npy')
 predictions = _predict(X_test, w, b)
 with open(output_fpath, 'w') as f:
     f.write('id,label\n')
