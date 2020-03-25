@@ -199,15 +199,15 @@ b = np.zeros((1,))
 
 # Some parameters for training    
 max_iter = 500
-batch_size = 8
-learning_rate = 0.015
+batch_size = 16
+learning_rate = 0.01
 
 # Keep the loss and accuracy at every iteration for plotting
 train_loss = []
 dev_loss = []
 train_acc = []
 dev_acc = []
-lamb = 0.1
+lamb = 0
 # Calcuate the number of parameter updates
 step = 1
 
@@ -246,7 +246,8 @@ print('Training loss: {}'.format(train_loss[-1]))
 print('Development loss: {}'.format(dev_loss[-1]))
 print('Training accuracy: {}'.format(train_acc[-1]))
 print('Development accuracy: {}'.format(dev_acc[-1]))
-
+np.save('weight_best.npy',w)
+np.save('b_best.npy',b)
 import matplotlib.pyplot as plt
 
 # Loss curve
@@ -271,12 +272,4 @@ with open(output_fpath.format('logistic'), 'w') as f:
     f.write('id,label\n')
     for i, label in  enumerate(predictions):
         f.write('{},{}\n'.format(i, label))
-
-# Print out the most significant weights
-name_list = []
-ind = np.argsort(np.abs(w))[::-1]
-for i in ind[0:10]:
-    print(feature[i], w[i])
-    name_list.append(feature[i])
-print(name_list)
 
